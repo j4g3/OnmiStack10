@@ -6,7 +6,9 @@ const app = express()
 
 mongoose.connect('mongodb+srv://stack:stack2020@cluster0-i436p.mongodb.net/Week10?retryWrites=true&w=majority',{
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
 })
 
 app.use(express.json())
