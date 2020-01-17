@@ -9,7 +9,7 @@ import api from '../services/api';
 function Main({ navigation }) {
   const [devs, setDevs] = useState([]);
   const [currentRegion, setCurrentRegion] = useState(null)
-
+  const [techs, setTechs] = useState('')
 
   useEffect(()=>{
     async function loadInitialPosition(){
@@ -35,14 +35,13 @@ function Main({ navigation }) {
 
   async function loadDevs(){
     const { latitude, longitude } = currentRegion;
-    console.log(latitude, longitude)
     const response = await api.get('/search', {
-      latitude:-23.0893284,
-      longitude: -48.9164439,
-      techs: 'ReactJS'
+      params:{
+        latitude,
+        longitude,
+        techs
+      }
     });
-
-    console.log(response)
 
     setDevs(response.data.devs)
   }
@@ -93,6 +92,8 @@ function Main({ navigation }) {
             placeholderTextColor="#999"
             autoCapitalize="words"
             autoCorrect={false}
+            value={techs}
+            onChangeText={setTechs}
           />
           <TouchableOpacity style={styles.loadButton} onPress={loadDevs}>
             <MaterialIcons name="my-location" size={20} color="#fff"/>
